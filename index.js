@@ -52,7 +52,7 @@ const booksDataPost = (books) => {
 
 
     document.getElementById("total-book").innerText = books.length > 0 ? "Total book found: " + books.length : "Book not found!";
-    books.forEach(book => {
+    books.slice(0, 30).forEach(book => {
 
         div.innerHTML += `
        
@@ -76,4 +76,3 @@ const booksDataPost = (books) => {
 }
 
 
-{/* <p class="card-text"> Published: ${book?.publish_date?.join(",")}</span></p > */ }
