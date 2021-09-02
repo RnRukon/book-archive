@@ -13,6 +13,9 @@ const toggleSpinner = displayStyle => {
 const toggleSearchResult = displayStyle => {
     document.getElementById('books-result-container').style.display = displayStyle;
 }
+const totalBookResult = displayStyle => {
+    document.getElementById('total-book').style.display = displayStyle;
+}
 
 /* *******************API data load**************** */
 const booksData = async () => {
@@ -20,6 +23,7 @@ const booksData = async () => {
     const searchBookField = document.getElementById('search-field');
     toggleSpinner('block');
     toggleSearchResult('none')
+    totalBookResult('none')
     const searchBookFieldValue = searchBookField.value;
     searchBookField.value = '';
     console.log({ searchBookFieldValue });
@@ -49,16 +53,16 @@ const booksDataPost = (books) => {
 
     document.getElementById("total-book").innerText = books.length > 0 ? "Total book found: " + books.length : "Book not found!";
     books.forEach(book => {
-        console.log(book)
+
         div.innerHTML += `
        
         <div class="card-style card m-2 col-lg-4 g-3" style="width: 18rem; box-shadow:1px 2px 10px #ffee6eaa;">
         <img style="height:200px" class="card-img-top" src="https://covers.openlibrary.org/b/id/${book?.cover_i}-M.jpg"/>
         <div class="card-body">
-        <h3  class="card-text"> ${book.title}</h3>
-        <p  class="card-text"> Author: ${book?.author_name?.join(" || ")}</p>
-        <p  class="card-text"> Publisher: ${book?.publisher?.join(",")}</p>
-        <p  class="card-text"> Published: ${book?.publish_date?.join(",")}</span></p> 
+        <h3  class="card-text   text-danger"> ${book.title?.slice(0, 19)}</h3>
+        <p  class="card-text"> Author: ${book?.author_name?.slice(0, 1)}</p>
+        <p  class="card-text"> Publisher: ${book?.publisher?.slice(0, 1)}</p>
+        <p  class="card-text"> Published: ${book?.publish_date?.slice(0, 1)}</span></p> 
         </div>
       </div>
         `
@@ -67,6 +71,9 @@ const booksDataPost = (books) => {
     booksResultContainer.appendChild(div);
     toggleSpinner('none');
     toggleSearchResult('block')
+    totalBookResult('block')
+
 }
 
 
+{/* <p class="card-text"> Published: ${book?.publish_date?.join(",")}</span></p > */ }
